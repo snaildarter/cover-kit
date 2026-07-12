@@ -40,6 +40,7 @@ export function Preview({
       {/* The actual 900x500 preview — scaled down in browser, full-res on export */}
       <div
         ref={ref}
+        data-cover-preview
         className="w-full max-w-[540px] aspect-[9/5] relative overflow-hidden rounded-lg shadow-2xl"
         style={bgStyle}
       >
