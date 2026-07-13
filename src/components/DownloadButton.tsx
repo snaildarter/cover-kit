@@ -21,11 +21,11 @@ export function DownloadButton({ previewRef, title }: DownloadButtonProps) {
         useCORS: true,
         backgroundColor: null,
         onclone: (clonedDoc) => {
-          // Force the cloned element to exactly 900×500 so there's no whitespace
+          // Force the cloned element to exactly 940×400 (2.35:1) so there's no whitespace
           const el = clonedDoc.querySelector("[data-cover-preview]");
           if (el instanceof HTMLElement) {
-            el.style.width = "900px";
-            el.style.height = "500px";
+            el.style.width = "940px";
+            el.style.height = "400px";
             el.style.maxWidth = "none";
             el.style.aspectRatio = "auto";
           }

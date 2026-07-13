@@ -37,11 +37,11 @@ export function Preview({
 
   return (
     <div className="flex justify-center">
-      {/* The actual 900x500 preview — scaled down in browser, full-res on export */}
+      {/* 2.35:1 WeChat cover — scaled in browser, full-res on export */}
       <div
         ref={ref}
         data-cover-preview
-        className="w-full max-w-[540px] aspect-[9/5] relative overflow-hidden rounded-lg shadow-2xl"
+        className="w-full max-w-[564px] aspect-[47/20] relative overflow-hidden rounded-lg shadow-2xl"
         style={bgStyle}
       >
         {/* Dark overlay for readability on image backgrounds */}
