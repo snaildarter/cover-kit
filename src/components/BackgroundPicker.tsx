@@ -1,33 +1,37 @@
 "use client";
 
 import { useRef } from "react";
+import type { Lang } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
 
 interface BackgroundPickerProps {
   bgColor: string;
   bgImage: string | null;
+  lang: Lang;
   onBgColorChange: (v: string) => void;
   onBgImageChange: (v: string | null) => void;
 }
 
-const GRADIENTS = [
-  { label: "深邃蓝", value: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)" },
-  { label: "暖灰", value: "linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)" },
-  { label: "雾蓝", value: "linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%)" },
-  { label: "日落", value: "linear-gradient(135deg, #ff6b35 0%, #f7c948 100%)" },
-  { label: "森林", value: "linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%)" },
+const GRADIENT_KEYS = [
+  { key: "deepBlue", value: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)" },
+  { key: "warmGrey", value: "linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)" },
+  { key: "fogBlue", value: "linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%)" },
+  { key: "sunset", value: "linear-gradient(135deg, #ff6b35 0%, #f7c948 100%)" },
+  { key: "forest", value: "linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%)" },
 ];
 
-const SOLIDS = [
-  { label: "纯黑", value: "#0a0a0a" },
-  { label: "纯白", value: "#ffffff" },
-  { label: "米白", value: "#faf8f5" },
-  { label: "深蓝", value: "#0f172a" },
-  { label: "墨绿", value: "#1a2f1d" },
+const SOLID_KEYS = [
+  { key: "pureBlack", value: "#0a0a0a" },
+  { key: "pureWhite", value: "#ffffff" },
+  { key: "cream", value: "#faf8f5" },
+  { key: "darkBlue", value: "#0f172a" },
+  { key: "darkGreen", value: "#1a2f1d" },
 ];
 
 export function BackgroundPicker({
   bgColor,
   bgImage,
+  lang,
   onBgColorChange,
   onBgImageChange,
 }: BackgroundPickerProps) {
@@ -46,7 +50,7 @@ export function BackgroundPicker({
   return (
     <div className="space-y-3">
       <label className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
-        背景
+        {t(lang, "bgLabel")}
       </label>
 
       {/* Upload */}
@@ -66,25 +70,25 @@ export function BackgroundPicker({
               : "border-neutral-700 text-neutral-400 hover:border-neutral-500"
           }`}
         >
-          {bgImage ? "已上传图片" : "上传图片"}
+          {bgImage ? t(lang, "uploaded") : t(lang, "upload")}
         </button>
         {bgImage && (
           <button
             onClick={clearImage}
             className="px-3 py-1.5 text-xs rounded-lg border border-neutral-700 text-neutral-400 hover:text-red-400 transition-colors"
           >
-            清除
+            {t(lang, "clear")}
           </button>
         )}
       </div>
 
       {/* Gradients */}
       <div className="flex gap-1.5 flex-wrap">
-        {GRADIENTS.map((g) => (
+        {GRADIENT_KEYS.map((g) => (
           <button
-            key={g.label}
+            key={g.key}
             onClick={() => { onBgColorChange(g.value); onBgImageChange(null); }}
-            title={g.label}
+            title={t(lang, g.key)}
             className={`w-7 h-7 rounded-full border-2 transition-all ${
               bgColor === g.value && !bgImage
                 ? "border-amber-400 scale-110"
@@ -97,11 +101,11 @@ export function BackgroundPicker({
 
       {/* Solids */}
       <div className="flex gap-1.5 flex-wrap">
-        {SOLIDS.map((s) => (
+        {SOLID_KEYS.map((s) => (
           <button
-            key={s.label}
+            key={s.key}
             onClick={() => { onBgColorChange(s.value); onBgImageChange(null); }}
-            title={s.label}
+            title={t(lang, s.key)}
             className={`w-7 h-7 rounded-full border-2 transition-all ${
               bgColor === s.value && !bgImage
                 ? "border-amber-400 scale-110"

@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import type { Lang } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
 
 interface DownloadButtonProps {
   previewRef: HTMLDivElement | null;
   title: string;
+  lang: Lang;
 }
 
-export function DownloadButton({ previewRef, title }: DownloadButtonProps) {
+export function DownloadButton({ previewRef, title, lang }: DownloadButtonProps) {
   const [loading, setLoading] = useState(false);
 
   const handleDownload = async () => {
@@ -21,7 +24,6 @@ export function DownloadButton({ previewRef, title }: DownloadButtonProps) {
         useCORS: true,
         backgroundColor: null,
         onclone: (clonedDoc) => {
-          // Force the cloned element to exactly 940×400 (2.35:1) so there's no whitespace
           const el = clonedDoc.querySelector("[data-cover-preview]");
           if (el instanceof HTMLElement) {
             el.style.width = "940px";
@@ -49,7 +51,7 @@ export function DownloadButton({ previewRef, title }: DownloadButtonProps) {
       disabled={loading}
       className="px-4 py-2 bg-amber-400 text-black text-sm font-semibold rounded-lg hover:bg-amber-300 disabled:opacity-50 transition-colors"
     >
-      {loading ? "导出中…" : "⬇ 下载封面图"}
+      {loading ? t(lang, "exporting") : t(lang, "download")}
     </button>
   );
 }

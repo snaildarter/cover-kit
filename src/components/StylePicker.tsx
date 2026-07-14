@@ -1,9 +1,12 @@
 "use client";
 
 import { STYLES, type StyleKey } from "@/lib/styles";
+import type { Lang } from "@/lib/i18n";
+import { t } from "@/lib/i18n";
 
 interface StylePickerProps {
   value: StyleKey;
+  lang: Lang;
   onChange: (key: StyleKey) => void;
 }
 
@@ -19,18 +22,17 @@ const LABEL_COLORS_ACTIVE: Record<StyleKey, string> = {
   casual: "bg-orange-500 text-white",
 };
 
-export function StylePicker({ value, onChange }: StylePickerProps) {
+export function StylePicker({ value, lang, onChange }: StylePickerProps) {
   const keys = Object.keys(STYLES) as StyleKey[];
 
   return (
     <div className="space-y-3">
       <label className="text-xs font-medium text-neutral-400 uppercase tracking-wider">
-        风格
+        {t(lang, "styleLabel")}
       </label>
       <div className="flex gap-2">
         {keys.map((key) => {
           const isActive = value === key;
-          const style = STYLES[key];
           return (
             <button
               key={key}
@@ -41,7 +43,7 @@ export function StylePicker({ value, onChange }: StylePickerProps) {
                   : `${LABEL_COLORS[key]} hover:opacity-80`
               }`}
             >
-              {style.label}
+              {t(lang, key)}
             </button>
           );
         })}
