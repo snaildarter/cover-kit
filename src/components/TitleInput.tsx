@@ -24,12 +24,12 @@ export function TitleInput({
         {t(lang, "titleLabel")}
       </label>
       <div className="space-y-2">
-        <input
-          type="text"
+        <textarea
           value={title}
           onChange={(e) => onTitleChange(e.target.value)}
           placeholder={t(lang, "titlePlaceholder")}
-          className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2.5 text-white text-sm placeholder:text-neutral-600 focus:outline-none focus:border-amber-400/50 transition-colors"
+          rows={2}
+          className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-3 py-2.5 text-white text-sm placeholder:text-neutral-600 focus:outline-none focus:border-amber-400/50 transition-colors resize-none"
         />
         <input
           type="text"

@@ -9,6 +9,9 @@ interface PreviewProps {
   style: CoverStyle;
   bgColor?: string;
   bgImage?: string | null;
+  /** User overrides for font size & color */
+  titleSize?: string;
+  titleColor?: string;
   onRef: (ref: HTMLDivElement | null) => void;
 }
 
@@ -18,6 +21,8 @@ export function Preview({
   style,
   bgColor,
   bgImage,
+  titleSize: customSize,
+  titleColor: customColor,
   onRef,
 }: PreviewProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -34,6 +39,9 @@ export function Preview({
         backgroundPosition: "center",
       }
     : { background: bgColor };
+
+  const fontSize = customSize || style.titleSize;
+  const titleColor = customColor || style.titleColor;
 
   return (
     <div className="flex justify-center">
@@ -54,9 +62,10 @@ export function Preview({
           <span
             style={{
               fontFamily: style.titleFont,
-              color: style.titleColor,
-              fontSize: style.titleSize,
-              lineHeight: 1.2,
+              color: titleColor,
+              fontSize,
+              lineHeight: 1.25,
+              whiteSpace: "pre-line",
               textShadow: bgImage ? "0 2px 12px rgba(0,0,0,0.5)" : "none",
             }}
           >
